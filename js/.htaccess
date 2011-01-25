@@ -1,0 +1,14 @@
+<IfModule mod_deflate.c>
+   <FilesMatch "\.js$">
+      SetOutputFilter DEFLATE
+   </FilesMatch>
+</IfModule>
+
+<IfModule mod_headers.c>
+   <filesmatch "\.(js|png|gif|cur)$">
+      Header set Expires "Sun, 10 Jun 2012 05:00:00 GMT"
+      Header unset ETag
+      FileETag None
+   </filesmatch>
+</IfModule>
+

@@ -1,0 +1,4 @@
+var GarbageCollector = {
+    markers: [],
+    canvases: []
+};

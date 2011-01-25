@@ -1,0 +1,273 @@
+
+.zoomControl {
+	background: url(../img/zoom.png) no-repeat;	
+	background-position: 0px -51px;
+	height: 174px;
+	width: 29px;
+	text-align: left;
+}
+
+ul#cMenuItems {
+	margin: 0;
+	padding: 0px 0px;
+	white-space: nowrap;
+}
+
+ul#cMenuItems li {
+	display:block;
+	width: auto;
+	height: 23px;
+	
+	list-style-type: none;
+	
+	font-family: Arial;
+	font-size: 10px;
+	
+	margin: 0;
+	padding: 0;
+}
+
+ul#cMenuItems hr {
+	background-color:#000000;
+	color:#000000;
+	border: 0 none;
+	height:1px;
+	font-size:1px;
+}
+
+ul#cMenuItems li.break {
+	display:block;
+	height:7px;
+	font-size: 1px;
+	width:100%;
+}
+
+.menuNormal { font-size:10px;display: block; padding: 5px 20px;  cursor: pointer; color: #444444; text-decoration: none !important;}
+.menuHover { background-color: #3399CC; text-decoration: none; color: #FFFFFF;}
+
+#zoomControl .sliderbg {
+    position: relative;
+    width: 17px;
+	height: 100px;
+	top: 18px;
+	left: 4px;
+	cursor: pointer;
+}
+
+#zoomControl .ui-slider-handle { 
+	display:block;
+	background: url('../img/zoom.png') left bottom no-repeat;
+	background-position: 0 -44px;
+	width: 22px;
+	height: 6px;
+	font-size: 0px;
+	cursor: hand; 
+	position: absolute; 
+	left: -1px;
+	outline-style: none;
+	outline: none;
+} 
+
+#zoomControl .ui-state-hover {
+	background-position: -20px -44px;
+}
+
+.zoomPlus {
+	cursor: pointer;
+	cursor: hand;
+	background: url(../img/zoom.png) no-repeat;
+	background-position: 0px 0px;
+	position: relative;
+	top: 10px;
+	left: 3px;	
+	width: 22px;
+	height: 22px;
+}
+
+.zoomPlusHover {
+	background-position: -20px 0px;
+}
+
+.zoomMinus {
+	cursor: pointer;
+	cursor: hand;
+	background: url(../img/zoom.png) no-repeat;
+	background-position: 0 -22px;
+	position: relative;
+	top: 19px;
+	left: 3px;
+	width: 22px;
+	height: 22px;	
+}
+
+.zoomMinusHover {
+	background-position: -20px -22px;
+}
+
+#distanceHolder {
+	position: absolute;
+	background: #CCCCC;
+	float: left;
+	top: 358px;
+}
+
+#kmScale, #miScale {
+	opacity:0.8;
+	filter:alpha(opacity=80);	
+}
+
+#distanceInfoKm {
+	font-size: 10px;
+	margin-top: 5px;
+	position: relative;
+	top: 6px;
+	font-family: Arial, Helvetica, sans-serif;
+	display: block;
+	width:100%;
+	text-align: left;
+}
+#distanceInfoMiles {
+	font-size: 10px;
+	float: left;
+	font-family: Arial, Helvetica, sans-serif;
+	display: block;
+	width:100%;
+	position: relative;
+	bottom: 6px;
+	text-align: left;
+	clear:both;
+}
+
+#distanceKmStart, #distanceMiStart {
+	background: url(../img/scale.png);
+	background-position: 0 0;
+	height: 7px;
+	width: 1px;
+	float: left;
+	font-size:6px;
+}
+
+#distanceKmStart {
+	clear:both;
+}
+
+#distanceKmStart, #distanceKmRepeat {
+		position: relative;
+		top: 8px;
+	}
+
+#distanceKmRepeat, #distanceMiRepeat {
+	background: url(../img/scale.png) repeat-x;
+	background-position: 0 -7px;
+	height: 7px;
+	width: 100px;
+	float: left;
+	font-size:6px;
+}
+
+#distanceKmStop {
+	background: url(../img/scale.png);
+	background-position: 0px -14px;
+	height: 14px;
+	width: 1px;
+	float: left;
+	position: relative;
+	top: 1px;
+	font-size:6px;
+	display:block;
+	
+}
+
+#distanceMiStop {
+	background: url(../img/scale.png);
+	background-position: 0px -14px;
+	height: 14px;
+	width: 1px;
+	float: left;
+	font-size:6px;
+	display:block;
+	
+}
+
+#infoWindowTop, #infoWindowBott {
+	width: 230px;
+}
+
+#infoWindowTop {
+	background-color: #ffffff;
+	padding: 10px 10px 10px 10px;
+	position: relative;
+}
+
+#infoWindowBott {
+	width: 270px;
+	height: 23px;
+	background: url(../img/infoWindowBott.png) 112px 0px no-repeat;	
+}
+
+#wndHeader {	
+	border-bottom: 1px solid #CCCCCC;
+	font-size: 13px;
+	font-weight: bold;
+	margin: 0 0 10px 0;
+	padding: 0 0 2px 0;
+	color: inherit;
+}
+
+#wndSubHeader {   
+	color: inherit;
+	list-style-type: none;
+	margin: 0;
+	line-height: 14px;
+}
+
+#wndBody {
+	font-size: 11px;
+	font-weight: none;
+	padding: 10px 0 0 0;
+	color:#666666;
+}
+
+#wndClose {
+    background: url(../img/close_icons.png) no-repeat;    
+    background-position: 3px 2px;
+    cursor:pointer;
+    display:block;
+    font-size:11px;
+    font-weight:bold;
+    height:15px;
+    position:absolute;
+    right:3px;
+    top:5px;
+    width:16px;
+}
+#wndClose:hover {
+    background: url(../img/close_icons.png) no-repeat;    
+    background-position: 3px -15px;
+}
+
+.jqResize {
+   width: 15px;
+   position: absolute;
+   bottom: 0;
+   right: 0;
+   cursor: se-resize;
+}
+.jqHandle {
+   background: blue;
+   height:15px;
+   z-index: 100;
+}
+
+.jqDrag {
+  width: 100%;
+  cursor: move;
+}
+
+.jqResize {
+   width: 15px;
+   position: absolute;
+   bottom: 0;
+   right: 0;
+   cursor: se-resize;
+}

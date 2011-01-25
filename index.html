@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Wayfinder JavaScript Map API</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Accept-Encoding" content="gzip, deflate">
+<meta http-equiv="Content-Encoding" content="gzip">
+<meta http-equiv="imagetoolbar" content="no" >
+
+<link rel="stylesheet" type="text/css" href="css/map.css" />
+
+<!--load jQuery files-->
+<script src='js/jquery/jquery-1.4.min.js'></script>
+<script src='js/jquery/jquery-ui-1.7.2.custom.min.js'></script>
+<script src='js/jquery/jquery.mousewheel.min.js'></script>
+<script src='js/jquery/jquery.rightClick.js'></script>
+<script src='js/jquery/jquery.slider.js'></script>
+<script src='js/jquery/raphael-min.js'></script>
+<!--load map JS files-->
+<script src='js/event.js'></script>
+<script src='js/map.js'></script>
+<script src='js/geoPoint.js'></script>
+<script src='js/convert.js'></script>
+<script src='js/config.js'></script>
+<script src='js/Control.js'></script>
+<script src='js/CopyrightControl.js'></script>
+<script src='js/scaleControl.js'></script>
+<script src='js/zoomControl.js'></script>
+<script src='js/contextMenu.js'></script>
+<script src='js/overlay.js'></script>
+<script src='js/marker.js'></script>
+<script src='js/markerManager.js'></script>
+<script src='js/anchor.js'></script>
+<script src='js/size.js'></script>
+<script src='js/icon.js'></script>
+<script src='js/infoWindow.js'></script>
+<script src='js/drawManager.js'></script>
+<script src='js/circle.js'></script>
+<script src='js/polyline.js'></script>
+<script src='js/keyboardHandler.js'></script>
+<script src='js/garbageCollector.js'></script>
+
+<script type="text/javascript">
+	var map, canvas, markerManager;
+	function initialize() {
+		map = new Map('view_port');
+		map.setMapMode('fullScreen');
+		map.centerMap( new GeoPoint(10, 50), 3);
+		
+		// Instantiate controls
+		var scale = new ScaleControl();
+		var slider = new ZoomControl();
+		
+		// Add the controls to the map
+		map.addControl(scale, "bottom-left");
+		map.addControl(slider, "upper-right");
+		
+		// Enable key events on your map instance
+		new KeyboardHandler(map);
+		
+		// Create a new context menu
+		var menu = new ContextMenu();
+		
+		// Add it to the map
+		map.addControl(menu);
+		
+		// Add bundled map functionalities
+		menu.addBasicFunctionality();
+		
+		// Add a line break to the menu
+		menu.addBreak();
+		
+		// Add marker
+		var markerManager;
+		markerManager = new MarkerManager(map);
+		var options1 = {icon: {image: 'img/markers.png', width: '20', height: '20', spriteX: '-22', spriteY: '-21', anchorX:'10', anchorY: '10'}};
+		var options2 = {icon: {image: 'img/pinpoint.png', width: '20', height: '20', anchorX: '1', anchorY: '23'}, useSprites : false};
+		var options3 = {icon: {image: 'img/markers.png', width: '21', height: '21', spriteX: '0', spriteY: '-21', anchorX:'10', anchorY: '10'}};
+		var options = options1;
+		markerManager = new MarkerManager(map);
+		var newMarker = new Marker({
+			geoPoint: new GeoPoint(2, 48),
+			options: options
+		});
+		markerManager.add(newMarker);
+		
+		// Define info window's content
+		var infoWindowParams = {title: 'InfoWindow Title', address: 'Some address', body: 'Some Description: <br>A nice \'Noodle bar\'.'};
+		var options = {icon: {image: 'img/markers.png', width: '20', height: '20', spriteX: '-22', spriteY: '-21', anchorX:'10', anchorY: '10'}};
+		
+		newMarker.bindInfoWindow(infoWindowParams);
+		newMarker.openInfoWindow();
+		
+		// Open info window when the marker is clicked
+		Event.addListener('click', function(params){ 
+			newMarker.openInfoWindow();  
+		}, {}, newMarker);
+		
+		// Add a custom option to the menu to shoe current location (coordinates)
+		canvas = new DrawManager(map);
+		menu.addOption("Show location", function(p) {
+			alert("Container: (" + p.pixel.x + ", " +
+					p.pixel.y + ")\n" +
+				"WGS84: (" + p.wgs.lat + ", " + 
+					p.wgs.lon + ")");
+		}, "img/link.gif");
+		menu.addBreak();
+		
+		// Add draw route funtionality to right-click menu
+		mapLats = new Array(); mapLons = new Array();
+		menu.addOption('Add point', function(p) {
+			mapLats[mapLats.length] = parseFloat(p.wgs.lat);
+			mapLons[mapLons.length] = parseFloat(p.wgs.lon);
+			
+			options = {icon: {image: 'img/bullseye.png', width: '16', height: '16', anchorX: '8', anchorY: '8'}, useSprites : false};
+			var newMarker = new Marker({geoPoint: new GeoPoint(p.wgs.lon, p.wgs.lat), options: options});
+			markerManager.add(newMarker);    
+		});
+		menu.addOption('Close path', function(p) {
+			mapLats[mapLats.length] = parseFloat(p.wgs.lat);
+			mapLons[mapLons.length] = parseFloat(p.wgs.lon);
+			
+			var line = new Polyline({
+				lats: mapLats,
+				lons: mapLons,
+				style: {
+					color: $('#color').val(),
+					lineWidth: $('#lwidth').val(),
+					opacity: $('#opacity').val()
+				},
+				map: map,
+				canvas: canvas
+			});
+			canvas.add(line);
+			options = {icon: {image: 'img/bullseye.png', width: '16', height: '16', anchorX: '8', anchorY: '8'}, useSprites : false};
+			var newMarker = new Marker({geoPoint: new GeoPoint(p.wgs.lon, p.wgs.lat), options: options});
+			markerManager.add(newMarker);    
+		});
+	}
+</script>
+
+</head>
+<body onload="initialize()">
+<div id="view_port" style="left: 0; top: 0; margin: 0; padding: 0;">
+</div>
+</body>
+</html>
